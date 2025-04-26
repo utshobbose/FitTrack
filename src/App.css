@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root container */
+#root {
+  @apply max-w-5xl mx-auto p-8 text-center;
+}
+
+/* Logo styles */
+.logo {
+  @apply h-24 p-6 transition-transform duration-300;
+  will-change: filter;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Keyframe animation for spinning logo */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply spinning animation only if motion preference allows */
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Card styles */
+.card {
+  @apply p-8 bg-white shadow-lg rounded-lg;
+}
+
+/* Documentation link style */
+.read-the-docs {
+  @apply text-gray-500;
+}
+
+/* Add custom styles or utilities if needed */
