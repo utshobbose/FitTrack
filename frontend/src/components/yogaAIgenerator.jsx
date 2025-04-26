@@ -1,53 +1,149 @@
+// import { useState } from "react";
+// import axios from "axios";
+// import { backend } from "../context/api";
+
+// function YogaAIGenerator() {
+//     const [yogaPlan, setYogaPlan] = useState([]);
+//     const [loading, setLoading] = useState(false);
+
+//     const handleGenerateYogaPlan = async () => {
+//         setLoading(true);
+//         try {
+//             const userId = localStorage.getItem("userId");
+
+//             const response = await axios.get(`${backend}/yogaai/generate`, {
+//                 headers: { userid: userId },
+//             });
+
+//             // ⚡ Assume backend sends structured array:
+//             setYogaPlan(response.data.yogaPlan); // e.g. array of objects
+//         } catch (error) {
+//             console.error("Error generating yoga plan:", error);
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     return (
+//         <section className="min-h-screen bg-gray-100 py-12 px-4">
+//             <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-8">
+//                 <h1 className="text-3xl font-extrabold text-teal-600 mb-6 text-center">
+//                     Personalized Yoga & Meditation Plan
+//                 </h1>
+
+//                 <div className="flex justify-center mb-8">
+//                     <button
+//                         onClick={handleGenerateYogaPlan}
+//                         disabled={loading}
+//                         className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition disabled:opacity-50"
+//                     >
+//                         {loading ? "Generating Plan..." : "Generate Your Yoga Routine"}
+//                     </button>
+//                 </div>
+
+//                 {yogaPlan.length > 0 && (
+//                     <div className="overflow-x-auto">
+//                         <table className="min-w-full bg-white border rounded-lg shadow">
+//                             <thead>
+//                                 <tr className="bg-teal-500 text-white">
+//                                     <th className="py-3 px-6 text-left">Day</th>
+//                                     <th className="py-3 px-6 text-left">Exercise</th>
+//                                     <th className="py-3 px-6 text-left">Description</th>
+//                                     <th className="py-3 px-6 text-left">Instructions</th>
+//                                     <th className="py-3 px-6 text-left">Time</th>
+//                                 </tr>
+//                             </thead>
+//                             <tbody>
+//                                 {yogaPlan.map((item, index) => (
+//                                     <tr key={index} className="border-t hover:bg-gray-100 even:bg-gray-50">
+//                                         <td className="py-3 px-6 font-semibold">Day {item.day}</td>
+//                                         <td className="py-3 px-6">{item.exercise}</td>
+//                                         <td className="py-3 px-6">{item.description}</td>
+//                                         <td className="py-3 px-6">{item.instructions}</td>
+//                                         <td className="py-3 px-6">{item.time}</td>
+//                                     </tr>
+//                                 ))}
+//                             </tbody>
+//                         </table>
+//                     </div>
+//                 )}
+//             </div>
+//         </section>
+//     );
+// }
+
+// export default YogaAIGenerator;
 import { useState } from "react";
 import axios from "axios";
-import { backend } from "../context/api"; // You already have this in your project!
+import { backend } from "../context/api";
 
 function YogaAIGenerator() {
-    const [yogaPlan, setYogaPlan] = useState("");
-    const [loading, setLoading] = useState(false);
+  const [yogaPlan, setYogaPlan] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    const handleGenerateYogaPlan = async () => {
+  const handleGenerateYogaPlan = async () => {
     setLoading(true);
     try {
-        const userId = localStorage.getItem("userId");
+      const userId = localStorage.getItem("userId");
 
-        const response = await axios.get(`${backend}/yogaai/generate`, {
+      const response = await axios.get(`${backend}/yogaai/generate`, {
         headers: { userid: userId },
-        });
+      });
 
-        setYogaPlan(response.data.yogaPlan); // Must match backend's response key
+      setYogaPlan(response.data.yogaPlan);
     } catch (error) {
-        console.error("Error generating yoga plan:", error);
+      console.error("Error generating yoga plan:", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-    };
+  };
 
-    return (
+  return (
     <section className="min-h-screen bg-gray-100 py-12 px-4">
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+      <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-extrabold text-teal-600 mb-6 text-center">
-            Personalized Yoga & Meditation Plan
+          Personalized Yoga & Meditation Plan
         </h1>
 
         <div className="flex justify-center mb-8">
-            <button
+          <button
             onClick={handleGenerateYogaPlan}
             disabled={loading}
             className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition disabled:opacity-50"
-            >
+          >
             {loading ? "Generating Plan..." : "Generate Your Yoga Routine"}
-            </button>
+          </button>
         </div>
 
-        {yogaPlan && (
-            <div className="bg-gray-50 p-6 rounded-lg whitespace-pre-line text-gray-700">
-            {yogaPlan}
-            </div>
+        {yogaPlan.length > 0 && (
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border rounded-lg shadow">
+              <thead>
+                <tr className="bg-teal-500 text-white">
+                  <th className="py-3 px-6 text-left">Day</th>
+                  <th className="py-3 px-6 text-left">Exercise</th>
+                  <th className="py-3 px-6 text-left">Description</th>
+                  <th className="py-3 px-6 text-left">Instructions</th>
+                  <th className="py-3 px-6 text-left">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {yogaPlan.map((item, index) => (
+                  <tr key={index} className="border-t even:bg-gray-50 hover:bg-gray-100">
+                    <td className="py-3 px-6 font-semibold">Day {item.day}</td>
+                    <td className="py-3 px-6">{item.exercise}</td>
+                    <td className="py-3 px-6">{item.description}</td>
+                    <td className="py-3 px-6">{item.instructions}</td>
+                    <td className="py-3 px-6">{item.time}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-        </div>
+      </div>
     </section>
-    );
+  );
 }
 
 export default YogaAIGenerator;
