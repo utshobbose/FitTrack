@@ -8,7 +8,15 @@ const yogaAISchema = new mongoose.Schema({
         unique: true,
     },
     yogaPlan: {
-        type: String,
+        type: [ 
+            {
+                day: String,
+                exercise: String,
+                description: String,
+                instructions: String,
+                time: String
+            }
+            ],
         required: true,
     }
 }, { timestamps: true });

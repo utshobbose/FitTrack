@@ -50,6 +50,7 @@ const MeditationMusic = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   const currentTrack = tracks[currentTrackIndex];
 
@@ -68,6 +69,10 @@ const MeditationMusic = () => {
     setIsPlaying(true);
     audioRef.current.src = tracks[nextIndex].audio;
     audioRef.current.play();
+
+    // Scroll smoothly to next card
+    const cardWidth = scrollContainerRef.current.firstChild.offsetWidth + 24;
+    scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
   };
 
   const handleSeek = (event) => {
@@ -78,13 +83,15 @@ const MeditationMusic = () => {
     <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* Main Content */}
       <main className="flex-1 p-6">
-        <h1 className="text-2xl font-bold mb-6 text-left gap-20">Meditation Tracks</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
+        <h1 className="text-2xl font-bold mb-6 text-left">Meditation Tracks</h1>
+        <div
+          ref={scrollContainerRef}
+          className="flex space-x-6 overflow-x-auto px-2 py-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
+        >
           {tracks.map((track, index) => (
             <div
               key={track.id}
-              className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg aspect-square ${currentTrackIndex === index ? 'border-2 border-teal-500' : ''}`}
-              style={{ width: "400px", height: "400px" }}
+              className={`flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg w-72 h-72 ${currentTrackIndex === index ? 'border-2 border-teal-500' : ''}`}
               onClick={() => {
                 setCurrentTrackIndex(index);
                 setIsPlaying(true);
@@ -95,12 +102,10 @@ const MeditationMusic = () => {
               <img
                 src={track.thumbnail}
                 alt={track.title}
-                className="w-full h-full object-cover"
+                className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-lg font-bold text-gray-700 truncate">
-                  {track.title}
-                </h3>
+                <h3 className="text-lg font-bold text-gray-700 truncate">{track.title}</h3>
                 <p className="text-gray-500 text-sm">{track.artist}</p>
               </div>
             </div>
@@ -135,14 +140,14 @@ const MeditationMusic = () => {
             >
               ⏭ Next
             </button>
-            <input
+            {/* <input
               type="range"
               min="0"
               max={audioRef.current?.duration || 0}
               step="1"
               onChange={handleSeek}
               className="w-40"
-            />
+            /> */}
           </div>
         </div>
       )}

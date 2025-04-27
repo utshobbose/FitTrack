@@ -1,5 +1,5 @@
 // Import necessary dependencies
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const WorkoutRoutine = () => {
   const [selectedDay, setSelectedDay] = useState("Today");

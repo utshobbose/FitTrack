@@ -9,11 +9,13 @@ const orderRoutes = require("./routes/OrderRoutes");
 const recipeRoutes = require("./routes/RecipeRoutes");
 const progressRoutes = require("./routes/ProgressRoutes");
 const YogaAIRoutes = require("./routes/YogaAIRoutes");
+const workoutRoutes = require("./routes/WorkoutAIRoutes");
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@clusterfittrack.ji7jdtp.mongodb.net/?retryWrites=true&w=majority&appName=ClusterFitTrack`
+
 
 // Middleware
 app.use(cors());
@@ -37,5 +39,6 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/yogaai", YogaAIRoutes);
+app.use("/api/workoutai", workoutRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
