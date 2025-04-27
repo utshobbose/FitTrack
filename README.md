@@ -65,7 +65,7 @@
 - **Backend**: ExpressJs
 - **Database**: MongoDB
 - **API Integrations**: Open Street Maps API (for locating nearby gyms)
-- **Groq AI API Integration**: Generate Yoga Routine based on user's information
+- **Groq AI API Integration**: Generate Yoga Routine and WorKout Routine Videos based on user's information
 
 ---
 
