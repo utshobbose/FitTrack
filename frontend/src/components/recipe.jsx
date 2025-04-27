@@ -48,10 +48,10 @@ function Recipe() {
     useEffect(() => {
         axios
             .get(`${backend}/recipes`,{
-              headers: {
-                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-          })
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                },
+            })
             .then((response) => {
                 setRecipes(response.data);
             })
