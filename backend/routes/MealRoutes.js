@@ -1,7 +1,7 @@
-const express = require('express');
+// const express = require('express');
 
-const authenticate = require('../middleware/AuthMiddleware');
+// const authenticate = require('../middleware/AuthMiddleware');
 
-const router = express.Router();
+// const router = express.Router();
 
-module.exports = router;
+// module.exports = router;
