@@ -6,7 +6,7 @@ import FoodCalculator from '../components/foodcal';
 function CaloriesTrackerpage() {
     return <>
         <Navbar/>
-        <FoodCalculator/>
+        {/* <FoodCalculator/> */}
         {/* <Burntcal/> */}
     </>;
 }

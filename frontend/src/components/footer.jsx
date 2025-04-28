@@ -69,12 +69,12 @@ function Footer() {
             </li>
 
             <li>
-              <a
+              <p
                 className="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                href="/programs"
+              
               >
                 Programs
-              </a>
+              </p>
             </li>
 
             <li>
