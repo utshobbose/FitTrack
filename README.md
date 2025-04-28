@@ -16,7 +16,7 @@
 - **Water Intake Tracker**: Keep track of your daily water consumption.
 
 ### Workout Plans
-- **Workout Tutorials**: Get tutorials for beginners to start your fitness journey.
+- **Workout Tutorials with AI integration**: Get tutorials for beginners to start your fitness journey through Groq AI suggestions.
 - **Nearby Gyms Map**: Locate gyms near you for convenient workouts.
 
 ### Yoga and Wellness
@@ -29,7 +29,7 @@
 
 ### Online Shop
 - **Supplements**: Browse and purchase fitness supplements.
-- **Gym Equipment**: Shop for gym equipment to enhance your workouts.
+<!-- - **Gym Equipment**: Shop for gym equipment to enhance your workouts. -->
 
 ## Features in Development
 - **Meal Plans**: Advanced meal planning functionality.
