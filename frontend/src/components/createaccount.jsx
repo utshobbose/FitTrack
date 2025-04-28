@@ -38,7 +38,7 @@ function CreateAccount() {
     }
 
     try {
-      const response = await axios.post(`${backend}/api/users/`, {
+      const response = await axios.post(`${backend}/users/`, {
         username: formData.username,
         firstName: formData.firstName,
         lastName: formData.lastName,
