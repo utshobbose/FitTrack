@@ -1,5 +1,6 @@
 import Navbar from "../components/navbar";
 import Blog from "../components/blog";
+import Footer from "../components/footer";
 
 function Blogpage() {
     return <>
@@ -9,6 +10,8 @@ function Blogpage() {
                 <p className="mt-2 text-lg text-gray-600">Stay updated with our expert tips, workout routines, and health advice!</p>
             </div>
             <Blog />
+            <Footer />
+            
     </>;
 }
 

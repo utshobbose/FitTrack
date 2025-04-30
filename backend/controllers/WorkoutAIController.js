@@ -1,6 +1,46 @@
 const axios = require('axios');
 const User = require('../models/UserModel');
 
+//video list 
+// const curatedVideos = [
+//     {
+//         title: "Heavy Dumbbell Low Rep Strength and Stability",
+//         duration: "33 mins",
+//         category: "Core Workouts",
+//         url: "https://www.fitnessblender.com/videos/heavy-dumbbell-low-rep-strength-and-stability-gain-total-body-strength-and-control"
+//     },
+//     {
+//         title: "Low Impact Cardio with Static Holds",
+//         duration: "32 mins",
+//         category: "Beginner-Friendly Workouts",
+//         url: "https://www.fitnessblender.com/videos/low-impact-cardio-with-static-holds-with-a-red-light-green-light-approach"
+//     },
+//     {
+//         title: "30-Minute HIIT Cardio Workout with Warm Up - No Equipment at Home | SELF",
+//         duration: "28 mins",
+//         category: "Home Workouts",
+//         url: "https://www.youtube.com/watch?v=ml6cT4AZdqI"
+//     },
+//     {
+//         title: "30 Min FULL BODY WORKOUT with WARM UP | No Equipment & No Repeat | Rowan Row",
+//         duration: "32 mins",
+//         category: "Home Workouts",
+//         url: "https://www.youtube.com/watch?v=UIPvIYsjfpo"
+//     },
+//     {
+//         title: "45 Min FULL BODY WORKOUT | No Equipment | No Repeat | Rowan Row",
+//         duration: "42 mins",
+//         category: "Full Body Workouts",
+//         url: "https://www.youtube.com/watch?v=MOrRRvSGIQc"
+//     },
+//     {
+//         title: "Beginner Morning Yoga",
+//         duration: "20 mins",
+//         category: "Beginner-Friendly Workouts",
+//         url: "https://www.youtube.com/watch?v=v7AYKMP6rOE"
+//     }
+//     ];
+
 const generateWorkoutPlan = async (req, res) => {
     try {
     const { userId, note } = req.body;
@@ -19,26 +59,31 @@ Based on the following user info:
 - BMI: ${user.BMI || "N/A"}
 - Note: ${note}
 
-Suggest a workout plan. 
+Suggest a workout plan that uses real, existing YouTube videos.
+Search and return only **real and popular YouTube video URLs** for workouts that match this user profile.
 Respond ONLY with a pure JSON array of 6-8 YouTube workouts (must exist on YouTube).
 
 Each workout object must have exactly:
 - title (string)
 - duration (string)
-- category (one of: "Quick Workouts", "Beginner-Friendly Workouts", "Targeted Muscle Group Workouts", "Home Workouts")
-- videoId (11 character YouTube ID ONLY, no full link)
+- category (one of: "Full body Workouts", "Quick Workouts","Beginner-Friendly Workouts", "Targeted Muscle Group Workouts", "Home Workouts")
+- url (must be a FULL YouTube video URL that actually exists, like https://www.youtube.com/watch?v=...)
 
 Strict JSON ONLY. No explanation.
 Example:
 [
     {
-    "title": "10 Minute Beginner Cardio",
-    "duration": "10 mins",
-    "category": "Quick Workouts",
-    "videoId": "KrmYjcQzSsQ"
+    "title": "30 Min FULL BODY WORKOUT with WARM UP | No Equipment & No Repeat | Rowan Row",
+    "duration": "32:52",
+    "category": "Full Body Workouts",
+    "url": "https://www.youtube.com/watch?v=UIPvIYsjfpo"
     }
     ]
+Do not invent fake IDs. Only return videos that are real and likely to exist.
+Strict JSON ONLY. No explanation.
     `;
+
+
 
     const groqRes = await axios.post(
         "https://api.groq.com/openai/v1/chat/completions",
