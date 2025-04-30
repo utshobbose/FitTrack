@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userRoutes = require('./routes/UserRoutes');
-// const mealRoutes = require('./routes/MealRoutes');
+//const mealRoutes = require('./routes/MealRoutes');
 const productRoutes = require('./routes/ProductRoutes');
 const orderRoutes = require("./routes/OrderRoutes");
 const recipeRoutes = require("./routes/RecipeRoutes");
@@ -33,7 +33,7 @@ mongoose.connect(mongoString)
 
 // Routes
 app.use('/api/users', userRoutes);
-// app.use('/api/meals', mealRoutes);
+//app.use('/api/meals', mealRoutes);
 app.use('/api/product', productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/recipes", recipeRoutes);
