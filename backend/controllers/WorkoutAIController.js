@@ -82,7 +82,29 @@ Example:
 Do not invent fake IDs. Only return videos that are real and likely to exist.
 Strict JSON ONLY. No explanation.
     `;
-
+    // const prompt = `
+    // You are given a numbered list of real workout videos:
+    
+    // 0: Heavy Dumbbell Low Rep Strength and Stability
+    // 1: Low Impact Cardio with Static Holds
+    // 2: 30-Minute HIIT Cardio Workout with Warm Up
+    // 3: 30 Min FULL BODY WORKOUT with Rowan Row
+    // 4: 45 Min FULL BODY WORKOUT with Rowan Row
+    // 5: Beginner Morning Yoga
+    
+    // User Profile:
+    // - Age: ${user.age}
+    // - Height: ${user.height} cm
+    // - Weight: ${user.weight} kg
+    // - BMI: ${user.BMI || "N/A"}
+    // - Goal/Note: ${note}
+    
+    // Return ONLY a JSON array of the most suitable video indexes (6 to 8 values max).
+    
+    // Example:
+    // [2, 3, 5]
+    // `;
+    
 
 
     const groqRes = await axios.post(
