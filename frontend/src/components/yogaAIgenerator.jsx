@@ -8,12 +8,27 @@ function YogaAIGenerator() {
 
   const userId = localStorage.getItem("userId"); // Get userId early
 
+  // useEffect(() => {
+  //   if (userId) {
+  //     const savedPlan = localStorage.getItem(`yogaPlan_${userId}`);
+  //     if (savedPlan) {
+  //       setYogaPlan(JSON.parse(savedPlan));
+  //     }
+  //   }
+  // }, [userId]);
   useEffect(() => {
     if (userId) {
-      const savedPlan = localStorage.getItem(`yogaPlan_${userId}`);
-      if (savedPlan) {
-        setYogaPlan(JSON.parse(savedPlan));
-      }
+      setLoading(true);
+      axios.get(`${backend}/yogaai/generate`, {
+        headers: { userid: userId },
+      })
+      .then((res) => {
+        setYogaPlan(res.data.yogaPlan || []);
+      })
+      .catch((err) => {
+        console.error("Error loading yoga plan:", err);
+      })
+      .finally(() => setLoading(false));
     }
   }, [userId]);
 

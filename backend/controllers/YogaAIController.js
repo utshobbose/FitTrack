@@ -18,30 +18,65 @@ const generateYogaPlan = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const prompt = `Create a detailed personalized yoga plan.
-    Respond ONLY with a pure JSON array, without any extra text, headings, or explanation.
-    VERY IMPORTANT: 
-    - Make 7 full days (Day 1 to Day 7).
-    - Each day must have 3 different yoga exercises.
-    - Each exercise must include day, exercise, description, instructions, and time fields.
-    Format:
+    // const prompt = `Create a detailed personalized yoga plan.
+    // Respond ONLY with a pure JSON array, without any extra text, headings, or explanation.
+    // VERY IMPORTANT: 
+    // - Make 7 full days (Day 1 to Day 7).
+    // - Each day must have 3 different yoga exercises.
+    // - Each exercise must include day, exercise, description, instructions, and time fields.
+    // Format:
+    // [
+    //   {
+    //     "day": "Day 1",
+    //     "exercise": "Mountain Pose",
+    //     "description": "...",
+    //     "instructions": "...",
+    //     "time": "5 minutes"
+    //   },
+    //   ...
+    // ]
+    // User Info:
+    // Age: ${user.age}
+    // Height: ${user.height} cm
+    // Weight: ${user.weight} kg
+    // BMI: ${user.BMI}
+    // Calories: ${user.calories}
+    // Goals: Flexibility, strength, stress reduction.
+    // `;
+
+    const prompt = `
+    Create a detailed 7-day personalized yoga & meditation plan based on the user's profile.
+    
+    Very important:
+    - Return only a JSON array of 21 items (3 exercises per day, for 7 days).
+    - Each object must include **exactly** these fields:
+      - "day": "Day 1", "Day 2", ..., "Day 7"
+      - "exercise": name of the yoga pose
+      - "description": short purpose of the pose
+      - "instructions": clear execution steps
+      - "time": duration like "5 minutes", "10 minutes", etc.
+    
+    Do NOT add headings, markdown, explanation, or extra text — only raw JSON.
+    
+    User Info:
+    - Age: ${user.age}
+    - Height: ${user.height} cm
+    - Weight: ${user.weight} kg
+    - BMI: ${user.BMI}
+    - Calories: ${user.calories}
+    - Goals: Flexibility, strength, stress reduction
+    
+    JSON output format example:
     [
       {
         "day": "Day 1",
         "exercise": "Mountain Pose",
-        "description": "...",
-        "instructions": "...",
+        "description": "Foundational pose to improve posture and balance",
+        "instructions": "Stand with feet hip-width apart, arms by your side...",
         "time": "5 minutes"
       },
       ...
     ]
-    User Info:
-    Age: ${user.age}
-    Height: ${user.height} cm
-    Weight: ${user.weight} kg
-    BMI: ${user.BMI}
-    Calories: ${user.calories}
-    Goals: Flexibility, strength, stress reduction.
     `;
     const groqRes = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",

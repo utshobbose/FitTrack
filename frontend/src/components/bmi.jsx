@@ -1,18 +1,18 @@
 import { useState } from 'react';
 
 function Bmi() {
-  const [height, setHeight] = useState(''); // Height in meters
-  const [weight, setWeight] = useState(''); // Weight in kilograms
+  const [height, setHeight] = useState(''); // Height in cm
+  const [weight, setWeight] = useState(''); // Weight in kg
   const [bmi, setBmi] = useState(null);
   const [message, setMessage] = useState('');
 
   const calculateBmi = (e) => {
     e.preventDefault();
-    if (height && weight) {
-      const bmiValue = (weight / (height * height)).toFixed(2);
+    if (height > 0 && weight > 0) {
+      const heightInMeters = height / 100;
+      const bmiValue = (weight / (heightInMeters * heightInMeters)).toFixed(2);
       setBmi(bmiValue);
 
-      // Determine BMI category
       if (bmiValue < 18.5) {
         setMessage('Underweight');
       } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
@@ -23,6 +23,7 @@ function Bmi() {
         setMessage('Obese');
       }
     } else {
+      setBmi(null);
       setMessage('Please enter valid height and weight values.');
     }
   };
@@ -45,16 +46,16 @@ function Bmi() {
           >
             <div>
               <label htmlFor="height" className="block text-sm font-medium text-gray-700">
-                Height (in meters)
+                Height (in centimeters)
               </label>
               <input
                 type="number"
-                step="0.01"
+                step="1"
                 id="height"
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
                 className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
-                placeholder="Enter height in meters"
+                placeholder="Enter height in cm"
               />
             </div>
 
