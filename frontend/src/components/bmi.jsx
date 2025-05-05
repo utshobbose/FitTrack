@@ -8,9 +8,9 @@ function Bmi() {
 
   const calculateBmi = (e) => {
     e.preventDefault();
-    if (height > 0 && weight > 0) {
-      const heightInMeters = height / 100;
-      const bmiValue = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+    if (height && weight) {
+      const height = height / 100; // Convert height to meters
+      const bmiValue = (weight / (height * height)).toFixed(2);
       setBmi(bmiValue);
 
       if (bmiValue < 18.5) {
