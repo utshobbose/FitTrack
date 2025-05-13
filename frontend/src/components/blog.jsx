@@ -76,6 +76,7 @@ function Blog() {
           </div>
         </article>
       ))}
+    
     </div>
   );
 }
