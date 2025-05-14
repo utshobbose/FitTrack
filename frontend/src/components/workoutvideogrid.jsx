@@ -2,6 +2,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { backend } from '../context/api';
 
+const extractVideoId = (url) => {
+  const match = url.match(/v=([^&]+)/);
+  return match ? match[1] : null;
+};
+
 const VideoGrid = () => {
   const [videos, setVideos] = useState([]);
   const [filter, setFilter] = useState('All');
@@ -72,17 +77,16 @@ const VideoGrid = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredVideos.map((video, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg">
-              <img
-                src={`https://img.youtube.com/vi/${video.videoId}/0.jpg`}
-                alt={video.title}
-                className="w-full h-48 object-cover"
-              />
+            <img
+              src={`https://img.youtube.com/vi/${extractVideoId(video.url)}/0.jpg`}
+              alt={video.title}
+            />
               <div className="p-4">
                 <h3 className="text-lg font-bold text-gray-700 truncate">{video.title}</h3>
                 <p className="text-gray-500 text-sm">{video.duration}</p>
                 <p className="text-gray-500 text-sm">{video.category}</p>
                 <a
-                  href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                  href={video.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 w-full inline-block bg-teal-500 text-white px-4 py-2 rounded-lg text-center hover:bg-teal-600"
