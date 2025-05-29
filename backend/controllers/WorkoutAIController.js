@@ -75,7 +75,7 @@ For example:
 
             workoutVideos = JSON.parse(cleaned);
 
-            // 🔒 Validate required fields
+            //  Validate required fields
             workoutVideos = workoutVideos.filter(
                 (video) =>
                     typeof video.title === "string" &&
