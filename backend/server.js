@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const stripSlash = (url) => (url ? url.replace(/\/+$/, '') : url);
 const userRoutes = require('./routes/UserRoutes');
 //const mealRoutes = require('./routes/MealRoutes');
 const productRoutes = require('./routes/ProductRoutes');
@@ -19,6 +20,26 @@ const mongoString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO
 
 // Middleware
 app.use(cors());
+
+
+
+const allowed = new Set([
+  stripSlash(process.env.CLIENT_ORIGIN), // prod Vercel origin
+  'http://localhost:5173',               // local dev
+]);
+
+console.log('CORS allow origin:', stripSlash(process.env.CLIENT_ORIGIN));
+
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true);      // allow non-browser clients
+    const o = stripSlash(origin);
+    if (allowed.has(o)) return cb(null, true);
+    return cb(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: true,
+}));
+
 app.use(express.json()); // Parse JSON requests
 
 // Database connection
