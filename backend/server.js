@@ -26,7 +26,7 @@ const mongoString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO
 // ---- CORS (place before express.json and routes) ----
 const allowedOrigins = new Set([
   stripSlash(process.env.CLIENT_ORIGIN),  // e.g., https://fit-track-iota-seven.vercel.app
-  'http://localhost:5173',
+  'http://localhost:5000',
 ]);
 
 app.use(cors({
