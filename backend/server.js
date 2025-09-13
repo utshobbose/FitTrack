@@ -19,26 +19,32 @@ const mongoString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO
 
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 
 
 
-const allowed = new Set([
-  stripSlash(process.env.CLIENT_ORIGIN), // prod Vercel origin
-  'http://localhost:5173',               // local dev
+// ---- CORS (place before express.json and routes) ----
+const allowedOrigins = new Set([
+  stripSlash(process.env.CLIENT_ORIGIN),  // e.g., https://fit-track-iota-seven.vercel.app
+  'http://localhost:5173',
 ]);
-
-console.log('CORS allow origin:', stripSlash(process.env.CLIENT_ORIGIN));
 
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin) return cb(null, true);      // allow non-browser clients
+    // allow server-to-server or curl (no Origin)
+    if (!origin) return cb(null, true);
     const o = stripSlash(origin);
-    if (allowed.has(o)) return cb(null, true);
+    if (allowedOrigins.has(o)) return cb(null, true);
     return cb(new Error(`Not allowed by CORS: ${origin}`));
   },
-  credentials: true,
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: false, // set to true ONLY if you actually use cookies across origins
 }));
+
+// Make sure preflight is answered
+app.options('*', cors());
+
 
 app.use(express.json()); // Parse JSON requests
 
